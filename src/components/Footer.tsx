@@ -51,7 +51,7 @@ export default function Footer({ currentPage, setCurrentPage }: FooterProps) {
           </span>
 
           <h2 className="font-sans font-extrabold text-3xl sm:text-4xl text-white tracking-tight leading-tight max-w-3xl">
-            Tus próximas vacaciones merecen la calidez de un hogar y el confort de un hotel 5 estrellas
+            Tus próximas vacaciones merecen la calidez de un hogar y el confort de un hotel
           </h2>
 
           <p className="text-gray-300 text-sm sm:text-base max-w-2xl leading-relaxed">
@@ -61,7 +61,7 @@ export default function Footer({ currentPage, setCurrentPage }: FooterProps) {
           <div className="pt-4">
             <button
               onClick={handleScrollToBooking}
-              className="px-8 py-4 bg-[#556B2F] hover:bg-[#4169E1] text-white text-base font-extrabold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer uppercase tracking-wide"
+              className="px-8 py-4 bg-[#556B2F] hover:bg-[#3D4F21] text-white text-base font-extrabold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer uppercase tracking-wide"
             >
               RESERVAR MI APARTAMENTO - ÚLTIMAS DISPONIBILIDADES
             </button>
@@ -84,7 +84,7 @@ export default function Footer({ currentPage, setCurrentPage }: FooterProps) {
             </div>
             
             <p className="text-xs text-gray-400 leading-relaxed max-w-sm">
-              Somos especialistas líderes en dotación y arriendo vacacional premium por días en Cartagena de Indias, Colombia. Ideado para hospedar comitivas numerosas unidas bajo el mismo bloque residencial con amparos de portería y atención continua.
+              Somos especialistas líderes en dotación y arriendo vacacional por días en Cartagena de Indias, Colombia. Ideado para hospedar comitivas numerosas unidas bajo el mismo bloque residencial con amparos de portería y atención continua.
             </p>
 
             <div className="flex items-center space-x-3 pt-2">
@@ -110,7 +110,7 @@ export default function Footer({ currentPage, setCurrentPage }: FooterProps) {
               >
                 Quiénes Somos
               </button>
-              <button onClick={() => handleScrollToSection('apartamentos')} className="text-left hover:text-[#556B2F] transition-colors cursor-pointer">Nuestras Suites amobladas</button>
+              <button onClick={() => handleScrollToSection('apartamentos')} className="text-left hover:text-[#556B2F] transition-colors cursor-pointer">Nuestros apartamentos</button>
               <button 
                 onClick={() => {
                   setCurrentPage('preguntas');

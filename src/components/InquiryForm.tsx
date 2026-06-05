@@ -407,7 +407,7 @@ export default function InquiryForm({ selectedApartmentId, onInquirySubmitted }:
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full sm:flex-1 bg-[#556B2F] hover:bg-[#4169E1] text-white font-extrabold text-sm py-4 rounded-xl shadow-md transition-all sm:order-2 flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-50"
+                  className="w-full sm:flex-1 bg-[#556B2F] hover:bg-[#3D4F21] text-white font-extrabold text-sm py-4 rounded-xl shadow-md transition-all sm:order-2 flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-50"
                 >
                   {isSubmitting ? (
                     <span>Procesando Consulta...</span>
@@ -419,7 +419,7 @@ export default function InquiryForm({ selectedApartmentId, onInquirySubmitted }:
                 <button
                   type="button"
                   onClick={handleWhatsAppDirect}
-                  className="w-full sm:w-auto bg-[#25D366] hover:bg-[#128C7E] text-white font-bold text-xs px-6 py-4 rounded-xl flex items-center justify-center space-x-1.5 cursor-pointer sm:order-1 transition-all"
+                  className="w-full sm:w-auto bg-[#556B2F] hover:bg-[#3D4F21] text-white font-bold text-xs px-6 py-4 rounded-xl flex items-center justify-center space-x-1.5 cursor-pointer sm:order-1 transition-all"
                 >
                   <MessageSquare className="h-4 w-4 fill-current text-white" />
                   <span>Consultar por WhatsApp</span>

@@ -72,9 +72,6 @@ export default function Gallery({ onSelectApartmentToBook }: GalleryProps) {
           <p className="font-sans font-bold text-3xl sm:text-4xl text-black tracking-tight leading-tight">
             Nuestros Apartamentos Disponibles
           </p>
-          <p className="text-gray-500 mt-2 text-sm">
-            Explora las diferentes configuraciones en el mismo edificio. Ideales para acomodar a toda tu comitiva.
-          </p>
           <div className="h-1 w-16 bg-[#556B2F] mx-auto mt-4 rounded-full" />
         </div>
 

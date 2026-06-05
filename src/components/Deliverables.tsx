@@ -12,13 +12,13 @@ export default function Deliverables() {
       id: 'del-2',
       icon: Snowflake,
       title: 'Climatización Total de Alta Eficiencia',
-      desc: 'Aires acondicionados tipo inverter nuevos y silenciosos instalados en absolutamente todas las habitaciones y áreas de sala común.'
+      desc: 'Aires acondicionados nuevos y silenciosos instalados en absolutamente todas las habitaciones y áreas de sala común.'
     },
     {
       id: 'del-3',
       icon: Tv,
-      title: 'Dispositivo Smart TV & Streaming',
-      desc: 'Pantallas UHD en la sala con perfiles activos de Netflix, YouTube Premium y una parrilla completa de canales internacionales.'
+      title: 'Dispositivo Smart TV',
+      desc: 'Televisores smart pantalla plana de 50 pulgadas con acceso a canales nacionales.'
     },
     {
       id: 'del-4',
@@ -36,7 +36,7 @@ export default function Deliverables() {
       id: 'del-6',
       icon: Trees,
       title: 'Piscina Recreativa & Zonas Comunes',
-      desc: 'Acceso total y libre a la piscina cristalina del edificio, terrazas de asoleamiento y un moderno lobby de ingreso con vigilancia.'
+      desc: 'Acceso a la piscina del edificio, terraza de esparcimiento y un moderno lobby de ingreso con vigilancia.'
     }
   ];
 
