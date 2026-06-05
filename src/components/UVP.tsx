@@ -1,4 +1,5 @@
 import { MapPin, Building2, Eye, Droplet, ShieldCheck } from 'lucide-react';
+import { UBICACION_IMAGE } from '../data';
 
 export default function UVP() {
   const values = [
@@ -63,6 +64,17 @@ export default function UVP() {
                   <h3 className="font-sans font-bold text-lg text-white tracking-tight mb-2">
                     {val.title}
                   </h3>
+
+                  {val.id === 'uvp-1' && (
+                    <div className="my-4 overflow-hidden rounded-xl bg-black/20 aspect-[16/10] flex justify-center items-center shadow-inner">
+                      <img 
+                        src={UBICACION_IMAGE} 
+                        alt="Ubicación privilegiada" 
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        referrerPolicy="no-referrer"
+                      />
+                    </div>
+                  )}
                   
                   <p className="text-sm text-stone-100/90 leading-relaxed font-light">
                     {val.desc}

@@ -4,6 +4,7 @@ export const HERO_IMAGE = 'https://i.imgur.com/VlWIIAo.jpeg';
 export const APARTMENT_IMAGE = '/src/assets/images/cartagena_apartment_1780459938071.png';
 export const POOL_IMAGE = '/src/assets/images/cartagena_pool_1780459951840.png';
 export const TOUR_IMAGE = '/src/assets/images/cartagena_tour_1780459965401.png';
+export const UBICACION_IMAGE = '/src/assets/images/apartamentos_ubicacion_1780627230964.png';
 
 // High-quality additional stock images supporting proper categories
 export const ADDITIONAL_IMAGES = {
