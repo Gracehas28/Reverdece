@@ -1,17 +1,36 @@
 import { Apartment, Review, FAQItem, Attraction } from './types';
 
 export const HERO_IMAGE = 'https://i.imgur.com/VlWIIAo.jpeg';
-export const APARTMENT_IMAGE = '/src/assets/images/cartagena_apartment_1780459938071.png';
-export const POOL_IMAGE = '/src/assets/images/cartagena_pool_1780459951840.png';
+export const APARTMENT_IMAGE = 'https://i.imgur.com/us7Pgrw.jpeg';
+export const POOL_IMAGE = 'https://i.imgur.com/u6Mjj39.jpeg';
 export const TOUR_IMAGE = '/src/assets/images/cartagena_tour_1780459965401.png';
-export const UBICACION_IMAGE = '/src/assets/images/apartamentos_ubicacion_1780627230964.png';
+export const UBICACION_IMAGE = 'https://i.imgur.com/lxuo3hr.jpeg';
+export const CAPACIDAD_IMAGE = 'https://i.imgur.com/rWZpkHC.jpeg';
+export const AMENIDADES_IMAGE = 'https://i.imgur.com/MhMxbHr.jpeg';
+export const VISTAS_IMAGE = 'https://i.imgur.com/mcxKXSX.jpeg';
+
+// The 12 user-submitted high-resolution apartment images
+export const APT_GALLERY_IMAGES = [
+  'https://i.imgur.com/us7Pgrw.jpeg', // Img 1
+  'https://i.imgur.com/lrXlOta.jpeg', // Img 2
+  'https://i.imgur.com/D0kP2E0.jpeg', // Img 3
+  'https://i.imgur.com/Wo2y8L0.jpeg', // Img 4
+  'https://i.imgur.com/u6Mjj39.jpeg', // Img 5
+  'https://i.imgur.com/4sr435T.jpeg', // Img 6
+  'https://i.imgur.com/pPgYOQy.jpeg', // Img 7
+  'https://i.imgur.com/r0A6ofT.jpeg', // Img 8
+  'https://i.imgur.com/POWSYie.jpeg', // Img 9
+  'https://i.imgur.com/rJDn8F8.jpeg', // Img 10
+  'https://i.imgur.com/pkyp6dg.jpeg', // Img 11
+  'https://i.imgur.com/o5QhR7C.jpeg'  // Img 12
+];
 
 // High-quality additional stock images supporting proper categories
 export const ADDITIONAL_IMAGES = {
-  bedroom: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=800&q=80',
-  kitchen: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80',
-  balcony: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80',
-  beach: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
+  bedroom: 'https://i.imgur.com/pPgYOQy.jpeg',
+  kitchen: 'https://i.imgur.com/r0A6ofT.jpeg',
+  balcony: 'https://i.imgur.com/POWSYie.jpeg',
+  beach: 'https://i.imgur.com/rJDn8F8.jpeg',
   chiva: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=800&q=80',
   cartagenaStreet: 'https://images.unsplash.com/photo-1583037189850-1921ae7c6c22?auto=format&fit=crop&w=800&q=80'
 };
@@ -26,10 +45,16 @@ export const APARTMENTS_DATA: Apartment[] = [
     view: 'Frente al Mar Directo',
     pricePerNight: 420000, // Price in COP
     competitorPrice: 750000,
-    image: APARTMENT_IMAGE,
+    image: 'https://i.imgur.com/us7Pgrw.jpeg',
     category: 'ocean_view',
     featured: true,
-    benefits: ['Balcón premium con mesa', 'Cocina abierta', 'Aire acondicionado inverter', 'Smart TV 55" UHD']
+    benefits: ['Balcón premium con mesa', 'Cocina abierta', 'Aire acondicionado inverter', 'Smart TV 55" UHD'],
+    photos: [
+      'https://i.imgur.com/us7Pgrw.jpeg',
+      'https://i.imgur.com/pPgYOQy.jpeg',
+      'https://i.imgur.com/r0A6ofT.jpeg',
+      'https://i.imgur.com/POWSYie.jpeg'
+    ]
   },
   {
     id: '2',
@@ -40,10 +65,16 @@ export const APARTMENTS_DATA: Apartment[] = [
     view: 'Vista al Mar y Piscina',
     pricePerNight: 550000,
     competitorPrice: 950000,
-    image: ADDITIONAL_IMAGES.bedroom,
+    image: 'https://i.imgur.com/lrXlOta.jpeg',
     category: 'three_bedroom',
     featured: true,
-    benefits: ['Baño privado suite', 'Sofá cama XL en sala', 'Comedor de 8 puestos', 'Lavadora y secadora']
+    benefits: ['Baño privado suite', 'Sofá cama XL en sala', 'Comedor de 8 puestos', 'Lavadora y secadora'],
+    photos: [
+      'https://i.imgur.com/lrXlOta.jpeg',
+      'https://i.imgur.com/rJDn8F8.jpeg',
+      'https://i.imgur.com/pkyp6dg.jpeg',
+      'https://i.imgur.com/o5QhR7C.jpeg'
+    ]
   },
   {
     id: '3',
@@ -54,10 +85,16 @@ export const APARTMENTS_DATA: Apartment[] = [
     view: 'Vista Lateral al Mar',
     pricePerNight: 350000,
     competitorPrice: 580000,
-    image: ADDITIONAL_IMAGES.balcony,
+    image: 'https://i.imgur.com/D0kP2E0.jpeg',
     category: 'two_bedroom',
     featured: true,
-    benefits: ['WiFi fibra óptica 300Mb', 'Zona de teletrabajo', 'Aire autónomo', 'Cocina totalmente equipada']
+    benefits: ['WiFi fibra óptica 300Mb', 'Zona de teletrabajo', 'Aire autónomo', 'Cocina totalmente equipada'],
+    photos: [
+      'https://i.imgur.com/D0kP2E0.jpeg',
+      'https://i.imgur.com/pPgYOQy.jpeg',
+      'https://i.imgur.com/pkyp6dg.jpeg',
+      'https://i.imgur.com/o5QhR7C.jpeg'
+    ]
   },
   {
     id: '4',
@@ -68,10 +105,16 @@ export const APARTMENTS_DATA: Apartment[] = [
     view: 'Vista Directa al Océano',
     pricePerNight: 430000,
     competitorPrice: 720000,
-    image: ADDITIONAL_IMAGES.kitchen,
+    image: 'https://i.imgur.com/Wo2y8L0.jpeg',
     category: 'ocean_view',
     featured: false,
-    benefits: ['Balcón con hamaca', 'Climatización individual', 'Cafetera automática', 'Netflix premium incluido']
+    benefits: ['Balcón con hamaca', 'Climatización individual', 'Cafetera automática', 'Netflix premium incluido'],
+    photos: [
+      'https://i.imgur.com/Wo2y8L0.jpeg',
+      'https://i.imgur.com/r0A6ofT.jpeg',
+      'https://i.imgur.com/POWSYie.jpeg',
+      'https://i.imgur.com/rJDn8F8.jpeg'
+    ]
   },
   {
     id: '5',
@@ -82,10 +125,16 @@ export const APARTMENTS_DATA: Apartment[] = [
     view: 'Vista de 180° Bahía y Océano',
     pricePerNight: 750000,
     competitorPrice: 1400000,
-    image: POOL_IMAGE, // Pool / premium vibe
+    image: 'https://i.imgur.com/u6Mjj39.jpeg',
     category: 'pool',
     featured: true,
-    benefits: ['Terraza gigante privada', 'Mesas exteriores', 'Jacuzzi compartido en edificio', 'Acabados de lujo']
+    benefits: ['Terraza gigante privada', 'Mesas exteriores', 'Jacuzzi compartido en edificio', 'Acabados de lujo'],
+    photos: [
+      'https://i.imgur.com/u6Mjj39.jpeg',
+      'https://i.imgur.com/pPgYOQy.jpeg',
+      'https://i.imgur.com/POWSYie.jpeg',
+      'https://i.imgur.com/o5QhR7C.jpeg'
+    ]
   },
   {
     id: '6',
@@ -96,10 +145,16 @@ export const APARTMENTS_DATA: Apartment[] = [
     view: 'Vista a la Piscina del Edificio',
     pricePerNight: 390000,
     competitorPrice: 650000,
-    image: ADDITIONAL_IMAGES.beach,
+    image: 'https://i.imgur.com/4sr435T.jpeg',
     category: 'pool',
     featured: false,
-    benefits: ['Acceso directo a zona húmeda', 'Ideal para adultos mayores', 'Aire centralizado', 'Smart TV en cuartos']
+    benefits: ['Acceso directo a zona húmeda', 'Ideal para adultos mayores', 'Aire centralizado', 'Smart TV en cuartos'],
+    photos: [
+      'https://i.imgur.com/4sr435T.jpeg',
+      'https://i.imgur.com/rJDn8F8.jpeg',
+      'https://i.imgur.com/pkyp6dg.jpeg',
+      'https://i.imgur.com/o5QhR7C.jpeg'
+    ]
   }
 ];
 

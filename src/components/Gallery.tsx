@@ -28,6 +28,9 @@ export default function Gallery({ onSelectApartmentToBook }: GalleryProps) {
 
   // Supporting auxiliary images for the lightbox carousel
   const getApartmentPhotos = (apt: Apartment) => {
+    if (apt.photos && apt.photos.length > 0) {
+      return apt.photos;
+    }
     return [
       apt.image,
       ADDITIONAL_IMAGES.bedroom,
@@ -101,7 +104,7 @@ export default function Gallery({ onSelectApartmentToBook }: GalleryProps) {
               className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-200/80 flex flex-col justify-between"
             >
               {/* Image & Price Tag */}
-              <div className="relative aspect-[4/3] overflow-hidden bg-gray-100 cursor-pointer" onClick={() => openLightbox(apt)}>
+              <div className="relative aspect-square overflow-hidden bg-gray-100 cursor-pointer" onClick={() => openLightbox(apt)}>
                 <img
                   src={apt.image}
                   alt={apt.name}
@@ -205,7 +208,7 @@ export default function Gallery({ onSelectApartmentToBook }: GalleryProps) {
                 <div className="inline-block align-middle transform transition-all sm:my-8 max-w-4xl w-full bg-white rounded-3xl text-left shadow-2xl overflow-hidden border border-gray-100">
                   
                   {/* Photo Slider */}
-                  <div className="relative aspect-[16/9] w-full bg-gray-950">
+                  <div className="relative aspect-square w-full bg-gray-950">
                     <img
                       src={getApartmentPhotos(selectedApartment)[activePhotoIdx]}
                       alt={`${selectedApartment.name} - Foto ${activePhotoIdx + 1}`}
@@ -248,7 +251,7 @@ export default function Gallery({ onSelectApartmentToBook }: GalleryProps) {
                       <button
                         key={index}
                         onClick={() => setActivePhotoIdx(index)}
-                        className={`relative flex-shrink-0 w-20 aspect-[4/3] rounded-lg overflow-hidden border-2 cursor-pointer transition-all ${
+                        className={`relative flex-shrink-0 w-20 aspect-square rounded-lg overflow-hidden border-2 cursor-pointer transition-all ${
                           activePhotoIdx === index ? 'border-[#556B2F] scale-95 shadow-md' : 'border-transparent opacity-60'
                         }`}
                       >

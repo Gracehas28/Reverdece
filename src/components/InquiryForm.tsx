@@ -13,7 +13,7 @@ export default function InquiryForm({ selectedApartmentId, onInquirySubmitted }:
     name: '',
     email: '',
     phone: '',
-    apartmentId: selectedApartmentId || '1',
+    apartmentId: '1 apto',
     checkIn: '',
     checkOut: '',
     guests: 4,
@@ -26,9 +26,8 @@ export default function InquiryForm({ selectedApartmentId, onInquirySubmitted }:
 
   // Keep state updated in case we trigger selectedApartmentId override from gallery
   useEffect(() => {
-    if (selectedApartmentId) {
-      setFormData((prev) => ({ ...prev, apartmentId: selectedApartmentId }));
-    }
+    // If we trigger a gallery booking, default to 1 apartment selection
+    setFormData((prev) => ({ ...prev, apartmentId: '1 apto' }));
   }, [selectedApartmentId]);
 
   // Calculate dynamic pricing estimate on field changes
@@ -40,11 +39,15 @@ export default function InquiryForm({ selectedApartmentId, onInquirySubmitted }:
       const timeDiff = end.getTime() - start.getTime();
       const nights = Math.max(0, Math.ceil(timeDiff / (1000 * 3600 * 24)));
       
-      const selectedApt = APARTMENTS_DATA.find((a) => a.id === apartmentId);
+      const selectedApt = APARTMENTS_DATA.find((a) => a.id === selectedApartmentId) || APARTMENTS_DATA[0];
+      
+      const matches = apartmentId.match(/^(\d+)/);
+      const aptCount = matches ? parseInt(matches[1], 10) : 1;
+
       if (selectedApt && nights > 0) {
         setDatesCalculated({
           nights,
-          totalPrice: selectedApt.pricePerNight * nights
+          totalPrice: selectedApt.pricePerNight * nights * aptCount
         });
       } else {
         setDatesCalculated({ nights: 0, totalPrice: 0 });
@@ -52,7 +55,7 @@ export default function InquiryForm({ selectedApartmentId, onInquirySubmitted }:
     } else {
       setDatesCalculated({ nights: 0, totalPrice: 0 });
     }
-  }, [formData.checkIn, formData.checkOut, formData.apartmentId]);
+  }, [formData.checkIn, formData.checkOut, formData.apartmentId, selectedApartmentId]);
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
@@ -86,14 +89,14 @@ export default function InquiryForm({ selectedApartmentId, onInquirySubmitted }:
 
     // Simulate database write
     setTimeout(() => {
-      const selectedApt = APARTMENTS_DATA.find((a) => a.id === formData.apartmentId);
+      const selectedApt = APARTMENTS_DATA.find((a) => a.id === selectedApartmentId) || APARTMENTS_DATA[0];
       const newInquiry: Inquiry = {
         id: `inq-${Date.now()}`,
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
         apartmentId: formData.apartmentId,
-        apartmentName: selectedApt ? selectedApt.name : 'Apartamento Reverdece',
+        apartmentName: `${formData.apartmentId} (${selectedApt ? selectedApt.name : 'Apartamento Reverdece'})`,
         checkIn: formData.checkIn,
         checkOut: formData.checkOut,
         guests: formData.guests,
@@ -104,6 +107,24 @@ export default function InquiryForm({ selectedApartmentId, onInquirySubmitted }:
       };
 
       onInquirySubmitted(newInquiry);
+
+      // Trigger email client with pre-filled details to the specified recipients
+      const emailBody = `Hola equipo de Reverdece,\n\n` +
+        `Se ha recibido una nueva solicitud de reserva con los siguientes detalles:\n\n` +
+        `👤 Nombre: ${formData.name}\n` +
+        `📧 Correo: ${formData.email}\n` +
+        `📞 WhatsApp: ${formData.phone}\n` +
+        `🏢 Cantidad de Apartamentos: ${formData.apartmentId}\n` +
+        `📅 Fecha de Entrada: ${formData.checkIn}\n` +
+        `📅 Fecha de Salida: ${formData.checkOut}\n` +
+        `👥 Número de Huéspedes: ${formData.guests} personas\n` +
+        `💰 Cotización de Referencia: ${datesCalculated.totalPrice > 0 ? formatCOP(datesCalculated.totalPrice) + ' COP' : 'Por cotizar'}\n` +
+        `📝 Comentarios o Requerimientos: ${formData.notes || 'Ninguno'}\n\n` +
+        `Saludos,\nFormulario de Reservas Reverdece`;
+
+      const mailtoUrl = `mailto:reverdeceteamhouese@gmail.com,reverderce5@gmail.com?subject=${encodeURIComponent(`Solicitud de Reserva: ${formData.name}`)}&body=${encodeURIComponent(emailBody)}`;
+      window.location.href = mailtoUrl;
+
       setIsSubmitting(false);
 
       // Reset form
@@ -111,7 +132,7 @@ export default function InquiryForm({ selectedApartmentId, onInquirySubmitted }:
         name: '',
         email: '',
         phone: '',
-        apartmentId: '1',
+        apartmentId: '1 apto',
         checkIn: '',
         checkOut: '',
         guests: 4,
@@ -122,9 +143,10 @@ export default function InquiryForm({ selectedApartmentId, onInquirySubmitted }:
   };
 
   const handleWhatsAppDirect = () => {
-    const selectedApt = APARTMENTS_DATA.find((a) => a.id === formData.apartmentId);
+    const selectedApt = APARTMENTS_DATA.find((a) => a.id === selectedApartmentId) || APARTMENTS_DATA[0];
     const message = `Hola Reverdece Amoblados. Quisiera consultar disponibilidad para:\n` +
-      `- Apartamento: ${selectedApt ? selectedApt.name : 'Frente al Mar'}\n` +
+      `- Cantidad: ${formData.apartmentId}\n` +
+      `- Referencia: ${selectedApt ? selectedApt.name : 'Varios'}\n` +
       `- Nombre: ${formData.name || 'Interesado'}\n` +
       `- Check-In: ${formData.checkIn || 'Sin definir'}\n` +
       `- Check-Out: ${formData.checkOut || 'Sin definir'}\n` +
@@ -284,7 +306,7 @@ export default function InquiryForm({ selectedApartmentId, onInquirySubmitted }:
                 {/* Apartment Select */}
                 <div className="space-y-1">
                   <label htmlFor="form-apartment" className="block text-xs font-bold text-gray-700 uppercase tracking-wide">
-                    Excelente Suite Seleccionada
+                    Cuantos apartamentos desea reservar
                   </label>
                   <select
                     id="form-apartment"
@@ -293,11 +315,13 @@ export default function InquiryForm({ selectedApartmentId, onInquirySubmitted }:
                     onChange={(e) => setFormData({ ...formData, apartmentId: e.target.value })}
                     className="block w-full rounded-xl border border-gray-250 bg-white px-3 py-3.5 text-sm focus:border-[#556B2F] focus:outline-none focus:ring-2 focus:ring-[#556B2F]/20"
                   >
-                    {APARTMENTS_DATA.map((apt) => (
-                      <option key={apt.id} value={apt.id}>
-                        {apt.name} ({formatCOP(apt.pricePerNight)}/n)
-                      </option>
-                    ))}
+                    <option value="1 apto">1 apto</option>
+                    <option value="2 aptos">2 aptos</option>
+                    <option value="3 aptos">3 aptos</option>
+                    <option value="4 aptos">4 aptos</option>
+                    <option value="5 aptos">5 aptos</option>
+                    <option value="6 aptos">6 aptos</option>
+                    <option value="mas de 6 aptos">mas de 6 aptos</option>
                   </select>
                 </div>
               </div>

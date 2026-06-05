@@ -11,6 +11,7 @@ export interface Apartment {
   category: 'ocean_view' | 'two_bedroom' | 'three_bedroom' | 'pool';
   featured: boolean;
   benefits: string[];
+  photos?: string[];
 }
 
 export interface Review {

@@ -1,5 +1,5 @@
 import { MapPin, Building2, Eye, Droplet, ShieldCheck } from 'lucide-react';
-import { UBICACION_IMAGE } from '../data';
+import { UBICACION_IMAGE, CAPACIDAD_IMAGE, AMENIDADES_IMAGE, VISTAS_IMAGE } from '../data';
 
 export default function UVP() {
   const values = [
@@ -20,7 +20,7 @@ export default function UVP() {
     {
       id: 'uvp-3',
       icon: Eye,
-      title: 'VISTAS AL MAR',
+      title: 'VISTAS AL MAR Y A LA CIUDAD AMURALLADA',
       desc: 'Despierta cada mañana contemplando los atardeceres y el esplendor del océano desde tu balcón.',
       tag: 'Paisaje Único'
     },
@@ -65,16 +65,26 @@ export default function UVP() {
                     {val.title}
                   </h3>
 
-                  {val.id === 'uvp-1' && (
-                    <div className="my-4 overflow-hidden rounded-xl bg-black/20 aspect-[16/10] flex justify-center items-center shadow-inner">
-                      <img 
-                        src={UBICACION_IMAGE} 
-                        alt="Ubicación privilegiada" 
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        referrerPolicy="no-referrer"
-                      />
-                    </div>
-                  )}
+                  {(() => {
+                    const imageSrc = 
+                      val.id === 'uvp-1' ? UBICACION_IMAGE :
+                      val.id === 'uvp-2' ? CAPACIDAD_IMAGE :
+                      val.id === 'uvp-3' ? VISTAS_IMAGE :
+                      val.id === 'uvp-4' ? AMENIDADES_IMAGE : null;
+                    
+                    if (!imageSrc) return null;
+                    
+                    return (
+                      <div className="my-4 overflow-hidden rounded-xl bg-black/20 aspect-[16/10] flex justify-center items-center shadow-inner">
+                        <img 
+                          src={imageSrc} 
+                          alt={val.title} 
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          referrerPolicy="no-referrer"
+                        />
+                      </div>
+                    );
+                  })()}
                   
                   <p className="text-sm text-stone-100/90 leading-relaxed font-light">
                     {val.desc}
