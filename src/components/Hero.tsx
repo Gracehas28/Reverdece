@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Waves, Award, UserCheck, ChevronDown, Sparkles, Volume2, VolumeX, Play, Pause, Instagram } from 'lucide-react';
+import { Waves, Award, UserCheck, ChevronDown, Sparkles, Volume2, VolumeX, Play } from 'lucide-react';
 import { HERO_IMAGE } from '../data';
 
 interface HeroProps {
@@ -12,6 +12,27 @@ export default function Hero({ onLearnMoreClick }: HeroProps) {
   const [isMuted, setIsMuted] = useState<boolean>(true);
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  // Garantizar reproducción automática robusta al cargar la página
+  React.useEffect(() => {
+    if (videoRef.current) {
+      // Forzar valores en el elemento real para saltarse restricciones de navegadores
+      videoRef.current.defaultMuted = true;
+      videoRef.current.muted = true;
+      
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch((error) => {
+            console.log("Autoplay bloqueado inicialmente por política del navegador. Esperando interacción:", error);
+            setIsPlaying(false);
+          });
+      }
+    }
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const container = e.currentTarget;
@@ -255,27 +276,6 @@ export default function Hero({ onLearnMoreClick }: HeroProps) {
                 className="absolute inset-0 rounded-[48px] ring-1 ring-white/10 group-hover:ring-white/25 transition-all duration-500 pointer-events-none"
                 style={{ transform: 'translateZ(10px)' }}
               />
-            </div>
-
-            {/* Down-Phone Action Center (Open original Reel & Tips) */}
-            <div className="mt-6 flex flex-col items-center space-y-3 max-w-[310px] w-full px-4 text-center">
-              <div className="flex items-center space-x-1.5 bg-white/5 py-1.5 px-3.5 rounded-full border border-white/5 shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-[#99B882] animate-pulse" />
-                <span className="text-[11px] font-sans text-gray-400">
-                  {isPlaying ? 'Video reproduciéndose en vivo' : 'Video en pausa • Toca para reproducir'}
-                </span>
-              </div>
-
-              <a 
-                href="https://www.instagram.com/reels/DZQb75HJs_P/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center space-x-2 text-xs font-semibold text-[#99B882] hover:text-[#556B2F] bg-white/5 hover:bg-[#99B882]/10 py-2 px-4 rounded-xl border border-white/10 hover:border-[#99B882]/20 shadow-md transition-all duration-300 transform hover:scale-103 active:scale-97 cursor-pointer"
-                title="Ver publicación real en Instagram"
-              >
-                <Instagram className="h-4 w-4" />
-                <span>Ver Publicación en Instagram</span>
-              </a>
             </div>
           </div>
 
