@@ -35,10 +35,16 @@ export const ADDITIONAL_IMAGES = {
   cartagenaStreet: 'https://images.unsplash.com/photo-1583037189850-1921ae7c6c22?auto=format&fit=crop&w=800&q=80'
 };
 
+// Helper function to return all 12 images with the primary image at index 0
+const get12PhotosFor = (primaryImage: string): string[] => {
+  const filtered = APT_GALLERY_IMAGES.filter((img) => img !== primaryImage);
+  return [primaryImage, ...filtered];
+};
+
 export const APARTMENTS_DATA: Apartment[] = [
   {
     id: '1',
-    name: 'Suite Deluxe Reverdece (Vista al Mar Directa)',
+    name: 'Apto piso 26 en Torre Primi',
     bedrooms: 2,
     bathrooms: 2,
     capacity: 6,
@@ -49,91 +55,131 @@ export const APARTMENTS_DATA: Apartment[] = [
     category: 'ocean_view',
     featured: true,
     benefits: ['Balcón premium con mesa', 'Cocina abierta', 'Aire acondicionado inverter', 'Smart TV 55" UHD'],
-    photos: [
-      'https://i.imgur.com/us7Pgrw.jpeg',
-      'https://i.imgur.com/pPgYOQy.jpeg',
-      'https://i.imgur.com/r0A6ofT.jpeg',
-      'https://i.imgur.com/POWSYie.jpeg'
-    ]
+    photos: get12PhotosFor('https://i.imgur.com/us7Pgrw.jpeg')
   },
   {
     id: '2',
-    name: 'Apartamento Familiar Reverdece Coral',
+    name: 'Apartamento en Sunset 47',
     bedrooms: 3,
     bathrooms: 2,
     capacity: 9,
     view: 'Vista al Mar y Piscina',
     pricePerNight: 550000,
     competitorPrice: 950000,
-    image: 'https://i.imgur.com/lrXlOta.jpeg',
+    image: 'https://i.imgur.com/XoVDDWe.jpeg',
     category: 'three_bedroom',
     featured: true,
     benefits: ['Baño privado suite', 'Sofá cama XL en sala', 'Comedor de 8 puestos', 'Lavadora y secadora'],
     photos: [
-      'https://i.imgur.com/lrXlOta.jpeg',
-      'https://i.imgur.com/rJDn8F8.jpeg',
-      'https://i.imgur.com/pkyp6dg.jpeg',
-      'https://i.imgur.com/o5QhR7C.jpeg'
+      'https://i.imgur.com/XoVDDWe.jpeg',
+      'https://i.imgur.com/Xj0vZtx.jpeg',
+      'https://i.imgur.com/mhnXKdr.jpeg',
+      'https://i.imgur.com/Gt0pB33.jpeg',
+      'https://i.imgur.com/9l4Pu6v.jpeg',
+      'https://i.imgur.com/BeCm70w.jpeg',
+      'https://i.imgur.com/cTbMB9U.jpeg',
+      'https://i.imgur.com/YRYJ0dW.jpeg',
+      'https://i.imgur.com/6tQ4bxr.jpeg',
+      'https://i.imgur.com/VVOeYuH.jpeg',
+      'https://i.imgur.com/xYqNPU4.jpeg',
+      'https://i.imgur.com/JWNvLJT.jpeg'
     ]
   },
   {
     id: '3',
-    name: 'Apartamento Práctico Reverdece Arena',
+    name: 'Apto piso 5 en Torre Primi',
     bedrooms: 2,
     bathrooms: 1,
     capacity: 5,
     view: 'Vista Lateral al Mar',
     pricePerNight: 350000,
     competitorPrice: 580000,
-    image: 'https://i.imgur.com/D0kP2E0.jpeg',
+    image: 'https://i.imgur.com/dNO5yHX.jpeg',
     category: 'two_bedroom',
     featured: true,
     benefits: ['WiFi fibra óptica 300Mb', 'Zona de teletrabajo', 'Aire autónomo', 'Cocina totalmente equipada'],
     photos: [
-      'https://i.imgur.com/D0kP2E0.jpeg',
-      'https://i.imgur.com/pPgYOQy.jpeg',
-      'https://i.imgur.com/pkyp6dg.jpeg',
-      'https://i.imgur.com/o5QhR7C.jpeg'
+      'https://i.imgur.com/dNO5yHX.jpeg',
+      'https://i.imgur.com/k0hSANq.jpeg',
+      'https://i.imgur.com/Un06YdZ.jpeg',
+      'https://i.imgur.com/8jTYjMx.jpeg',
+      'https://i.imgur.com/TGHcHPa.jpeg',
+      'https://i.imgur.com/vPJkGym.jpeg',
+      'https://i.imgur.com/nXxtaww.jpeg',
+      'https://i.imgur.com/hWdgBtp.jpeg',
+      'https://i.imgur.com/wvRBTmT.jpeg',
+      'https://i.imgur.com/hOjM04Q.jpeg',
+      'https://i.imgur.com/s0k8zdg.jpeg',
+      'https://i.imgur.com/JVNc9dK.jpeg',
+      'https://i.imgur.com/csmpJ1X.jpeg',
+      'https://i.imgur.com/VZzi69i.jpeg'
     ]
   },
   {
     id: '4',
-    name: 'Apartasuite Reverdece Brisa Tropical',
+    name: 'Apto en Edificio en MonteBianc',
     bedrooms: 2,
     bathrooms: 2,
     capacity: 6,
     view: 'Vista Directa al Océano',
     pricePerNight: 430000,
     competitorPrice: 720000,
-    image: 'https://i.imgur.com/Wo2y8L0.jpeg',
+    image: 'https://i.imgur.com/NpqHk9Z.jpeg',
     category: 'ocean_view',
     featured: false,
     benefits: ['Balcón con hamaca', 'Climatización individual', 'Cafetera automática', 'Netflix premium incluido'],
     photos: [
-      'https://i.imgur.com/Wo2y8L0.jpeg',
-      'https://i.imgur.com/r0A6ofT.jpeg',
-      'https://i.imgur.com/POWSYie.jpeg',
-      'https://i.imgur.com/rJDn8F8.jpeg'
+      'https://i.imgur.com/NpqHk9Z.jpeg',
+      'https://i.imgur.com/TLizFaP.jpeg',
+      'https://i.imgur.com/yccB8PV.jpeg',
+      'https://i.imgur.com/ttTiOSK.jpeg',
+      'https://i.imgur.com/Y0ukz8L.jpeg',
+      'https://i.imgur.com/kmyoGo8.jpeg',
+      'https://i.imgur.com/COcTZW9.jpeg',
+      'https://i.imgur.com/Rzlv4W1.jpeg',
+      'https://i.imgur.com/STnJMVk.jpeg',
+      'https://i.imgur.com/PevkcfY.jpeg',
+      'https://i.imgur.com/CReSjbt.jpeg',
+      'https://i.imgur.com/26HUUPO.jpeg',
+      'https://i.imgur.com/ll6MTjD.jpeg',
+      'https://i.imgur.com/6ge64YF.jpeg',
+      'https://i.imgur.com/FLRb2Fx.jpeg',
+      'https://i.imgur.com/0ZtcAav.jpeg'
     ]
   },
   {
     id: '5',
-    name: 'Penthouse Familiar Reverdece Imperial',
+    name: 'Apto en Conjunto Los Ejecutivos',
     bedrooms: 3,
     bathrooms: 3,
     capacity: 11,
     view: 'Vista de 180° Bahía y Océano',
     pricePerNight: 750000,
     competitorPrice: 1400000,
-    image: 'https://i.imgur.com/u6Mjj39.jpeg',
+    image: 'https://i.imgur.com/5dNEPRX.jpeg',
     category: 'pool',
     featured: true,
     benefits: ['Terraza gigante privada', 'Mesas exteriores', 'Jacuzzi compartido en edificio', 'Acabados de lujo'],
     photos: [
-      'https://i.imgur.com/u6Mjj39.jpeg',
-      'https://i.imgur.com/pPgYOQy.jpeg',
-      'https://i.imgur.com/POWSYie.jpeg',
-      'https://i.imgur.com/o5QhR7C.jpeg'
+      'https://i.imgur.com/5dNEPRX.jpeg',
+      'https://i.imgur.com/AYZZYFB.jpeg',
+      'https://i.imgur.com/oIOIbs5.jpeg',
+      'https://i.imgur.com/S9KndCs.jpeg',
+      'https://i.imgur.com/uIEcj1Y.jpeg',
+      'https://i.imgur.com/3wtaP94.jpeg',
+      'https://i.imgur.com/T3iI2RB.jpeg',
+      'https://i.imgur.com/PAU3Cy1.jpeg',
+      'https://i.imgur.com/PWuos83.jpeg',
+      'https://i.imgur.com/GBOsSql.jpeg',
+      'https://i.imgur.com/DnDjfcG.jpeg',
+      'https://i.imgur.com/NAAQYPO.jpeg',
+      'https://i.imgur.com/YGqD7DZ.jpeg',
+      'https://i.imgur.com/pex7SMs.jpeg',
+      'https://i.imgur.com/YOiK5PZ.jpeg',
+      'https://i.imgur.com/3Fcu1VE.jpeg',
+      'https://i.imgur.com/ffkXTxi.jpeg',
+      'https://i.imgur.com/4nYLRnH.jpeg',
+      'https://i.imgur.com/s2p4GkE.jpeg'
     ]
   },
   {
@@ -149,12 +195,7 @@ export const APARTMENTS_DATA: Apartment[] = [
     category: 'pool',
     featured: false,
     benefits: ['Acceso directo a zona húmeda', 'Ideal para adultos mayores', 'Aire centralizado', 'Smart TV en cuartos'],
-    photos: [
-      'https://i.imgur.com/4sr435T.jpeg',
-      'https://i.imgur.com/rJDn8F8.jpeg',
-      'https://i.imgur.com/pkyp6dg.jpeg',
-      'https://i.imgur.com/o5QhR7C.jpeg'
-    ]
+    photos: get12PhotosFor('https://i.imgur.com/4sr435T.jpeg')
   }
 ];
 

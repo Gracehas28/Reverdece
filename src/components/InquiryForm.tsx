@@ -375,19 +375,27 @@ export default function InquiryForm({ selectedApartmentId, onInquirySubmitted }:
                     Nº de Personas
                   </label>
                   <div className="relative rounded-lg shadow-xs">
-                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 z-10">
                       <Users className="h-4 w-4 text-gray-400" />
                     </div>
-                    <input
-                      type="number"
+                    <select
                       id="form-guests"
                       name="guests"
-                      min="1"
-                      max="15"
                       value={formData.guests}
-                      onChange={(e) => setFormData({ ...formData, guests: parseInt(e.target.value) || 1 })}
-                      className="block w-full rounded-xl border pl-10 pr-3 py-3 text-sm focus:border-[#556B2F] focus:outline-none focus:ring-2 focus:ring-[#556B2F]/20 bg-white"
-                    />
+                      onChange={(e) => setFormData({ ...formData, guests: parseInt(e.target.value, 10) || 1 })}
+                      className="block w-full rounded-xl border pl-10 pr-3 py-3 text-sm focus:border-[#556B2F] focus:outline-none focus:ring-2 focus:ring-[#556B2F]/20 bg-white cursor-pointer appearance-none"
+                    >
+                      {Array.from({ length: 15 }, (_, i) => i + 1).map((num) => (
+                        <option key={num} value={num}>
+                          {num} {num === 1 ? 'Persona' : 'Personas'}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                      <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
                   </div>
                 </div>
               </div>
