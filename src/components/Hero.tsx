@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Waves, Award, UserCheck, ChevronDown, Sparkles, Volume2, VolumeX, Play } from 'lucide-react';
-import { HERO_IMAGE } from '../data';
+import { HERO_IMAGE, POOL_IMAGE } from '../data';
 
 interface HeroProps {
   onLearnMoreClick: () => void;
@@ -9,30 +9,7 @@ interface HeroProps {
 export default function Hero({ onLearnMoreClick }: HeroProps) {
   const [rotateX, setRotateX] = useState<number>(8);
   const [rotateY, setRotateY] = useState<number>(-12);
-  const [isMuted, setIsMuted] = useState<boolean>(true);
-  const [isPlaying, setIsPlaying] = useState<boolean>(true);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-
-  // Garantizar reproducción automática robusta al cargar la página
-  React.useEffect(() => {
-    if (videoRef.current) {
-      // Forzar valores en el elemento real para saltarse restricciones de navegadores
-      videoRef.current.defaultMuted = true;
-      videoRef.current.muted = true;
-      
-      const playPromise = videoRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => {
-            setIsPlaying(true);
-          })
-          .catch((error) => {
-            console.log("Autoplay bloqueado inicialmente por política del navegador. Esperando interacción:", error);
-            setIsPlaying(false);
-          });
-      }
-    }
-  }, []);
+  const [hasStartedVideo, setHasStartedVideo] = useState<boolean>(false);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const container = e.currentTarget;
@@ -53,26 +30,6 @@ export default function Hero({ onLearnMoreClick }: HeroProps) {
     // Return to elegant passive default 3D angle
     setRotateX(8);
     setRotateY(-12);
-  };
-
-  const togglePlay = () => {
-    if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-        setIsPlaying(false);
-      } else {
-        videoRef.current.play().catch(() => {});
-        setIsPlaying(true);
-      }
-    }
-  };
-
-  const toggleMute = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Avoid triggering play/pause
-    if (videoRef.current) {
-      videoRef.current.muted = !isMuted;
-      setIsMuted(!isMuted);
-    }
   };
   return (
     <section id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16 lg:py-24">
@@ -178,13 +135,12 @@ export default function Hero({ onLearnMoreClick }: HeroProps) {
           >
             {/* 3D Tilted Perspective Wrapper */}
             <div 
-              className="relative w-[285px] sm:w-[310px] aspect-[9/16] bg-gradient-to-b from-stone-900 via-neutral-950 to-black rounded-[48px] p-3 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.8)] border border-white/10 overflow-hidden group select-none cursor-pointer"
+              className="relative w-[285px] sm:w-[310px] aspect-[9/16] bg-gradient-to-b from-stone-900 via-neutral-950 to-black rounded-[48px] p-3 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.8)] border border-white/10 overflow-hidden group select-none"
               style={{ 
                 transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`,
                 transition: 'transform 0.15s ease-out, shadow 0.15s ease-out',
                 transformStyle: 'preserve-3d'
               }}
-              onClick={togglePlay}
             >
               {/* Screen Inner Glare / Reflect Overlay */}
               <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/10 z-20 pointer-events-none rounded-[36px]" />
@@ -213,62 +169,72 @@ export default function Hero({ onLearnMoreClick }: HeroProps) {
               {/* Bottom Home Indicator Line */}
               <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 w-24 h-1 bg-white/30 rounded-full z-30 mix-blend-difference" />
 
-              {/* Video Wrapper (HTML5 Native zero-redirect player) */}
-              <div className="w-full h-full rounded-[36px] overflow-hidden bg-neutral-950 relative">
-                <video
-                  ref={videoRef}
-                  src="https://assets.mixkit.co/videos/preview/mixkit-luxury-resort-with-a-swimming-pool-and-palm-trees-41804-large.mp4"
-                  className="w-full h-full object-cover transition-transform duration-500 scale-100 group-hover:scale-[1.02]"
-                  autoPlay
-                  loop
-                  muted={isMuted}
-                  playsInline
-                />
+              {/* Video Wrapper (High-performance Google Drive Private Embed player or Custom Cover Preview) */}
+              <div 
+                className="w-full h-full rounded-[36px] overflow-hidden bg-neutral-950 relative cursor-pointer"
+                onClick={() => {
+                  if (!hasStartedVideo) {
+                    setHasStartedVideo(true);
+                  }
+                }}
+              >
+                {!hasStartedVideo ? (
+                  /* Cover Image and Pulsing Play Button */
+                  <div className="absolute inset-0 w-full h-full relative group/cover select-none">
+                    {/* Cover Background Image */}
+                    <img 
+                      src={POOL_IMAGE} 
+                      alt="Reverdece Cartagena Luxury" 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover/cover:scale-105"
+                      referrerPolicy="no-referrer"
+                    />
+                    
+                    {/* Tropical Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/20" />
 
-                {/* Instant Action Play/Pause Center Indicator (Fade on play state) */}
-                <div 
-                  className={`absolute inset-0 bg-black/35 backdrop-blur-[1px] transition-all duration-300 flex items-center justify-center z-10 ${
-                    isPlaying ? 'opacity-0 scale-95 pointer-events-none' : 'opacity-100 scale-100'
-                  }`}
-                >
-                  <div className="p-4 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-xl animate-pulse">
-                    <Play className="h-8 w-8 fill-current translate-x-0.5" />
+                    {/* Glowing glassmorphic Play Button container */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                      <div className="relative flex items-center justify-center">
+                        {/* Soft Outer Pulse Ring */}
+                        <span className="absolute inline-flex h-20 w-20 rounded-full bg-[#99B882]/30 animate-ping" />
+                        
+                        {/* Main Glass/Green Circle filled with Play Icon */}
+                        <div className="relative p-5 sm:p-6 rounded-full bg-[#556B2F] hover:bg-[#6b8243] text-white border border-[#99B882]/40 shadow-[0_0_35px_rgba(85,107,47,0.6)] transition-all duration-300 transform group-hover/cover:scale-110 active:scale-95 flex items-center justify-center">
+                          <Play className="h-7 w-7 text-white fill-current translate-x-0.5" />
+                        </div>
+                      </div>
+                      
+                      <span className="mt-4 text-xs font-serif italic text-stone-200 bg-black/60 backdrop-blur-md py-1.5 px-3.5 rounded-full border border-white/10 tracking-widest uppercase font-medium shadow-md">
+                        Ver Video Reverdece
+                      </span>
+                    </div>
+
+                    {/* Overlay badges for look and feel */}
+                    <div className="absolute left-4 top-14 z-20 flex items-center space-x-1.5 bg-[#556B2F]/90 backdrop-blur-md text-[10px] text-white py-1 px-2.5 rounded-full font-serif font-semibold tracking-wider border border-[#99B882]/20 pointer-events-none shadow-md">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#99B882] animate-pulse" />
+                      <span>PRESENTACIÓN</span>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  /* Live Playing Google Drive Iframe Video */
+                  <iframe
+                    id="reverdece-promo-video"
+                    src="https://drive.google.com/file/d/1ivgGIFpjsLgAs2c2LS05pGMGCyOfJdp1/preview?autoplay=1"
+                    className="w-full h-full border-0 rounded-[36px] scale-[1.08]"
+                    allow="autoplay; encrypted-media; picture-in-picture"
+                    allowFullScreen
+                    title="REVERDECE Cartagena Promo Video"
+                    style={{ height: 'calc(100% + 12px)', marginTop: '-6px' }}
+                  />
+                )}
 
-                {/* Left/Right Floating High-End UI elements inside the Reel */}
-                <div className="absolute left-4 bottom-8 z-20 text-white text-left font-sans drop-shadow-md pointer-events-none">
-                  <p className="text-sm font-bold tracking-tight mb-0.5">@reverdece.co</p>
-                  <p className="text-[10px] text-white/80 line-clamp-1">Sumérgete en el paraíso tropical • Cartagena</p>
-                </div>
-
-                {/* Right Floating Quick Action Tools in Phone (Mute + Unmute control) */}
-                <div className="absolute right-4 bottom-8 z-20 flex flex-col items-center space-y-4">
-                  <button
-                    onClick={toggleMute}
-                    className="p-3 bg-black/60 hover:bg-[#556B2F] border border-white/20 hover:border-[#99B882]/40 rounded-full text-white shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer pointer-events-auto"
-                    title={isMuted ? "Activar Sonido" : "Silenciar"}
-                  >
-                    {isMuted ? (
-                      <VolumeX className="h-4.5 w-4.5 text-red-300" />
-                    ) : (
-                      <Volume2 className="h-4.5 w-4.5 text-[#99B882] animate-bounce" />
-                    )}
-                  </button>
-
-                  <div className="flex flex-col items-center">
-                    <span className="p-2.5 bg-black/40 rounded-full text-white backdrop-blur-xs">
-                      🔥
-                    </span>
-                    <span className="text-[8px] text-white/90 font-bold mt-1 shadow-xs">Reel</span>
+                {/* Active Live Indicator Bar - Keep visible in both modes but dynamic label */}
+                {hasStartedVideo && (
+                  <div className="absolute left-4 top-14 z-20 flex items-center space-x-1.5 bg-[#556B2F]/90 backdrop-blur-md text-[10px] text-white py-1 px-2.5 rounded-full font-serif font-semibold tracking-wider border border-[#99B882]/20 pointer-events-none shadow-md">
+                    <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-ping" />
+                    <span>EN VIVO</span>
                   </div>
-                </div>
-
-                {/* Active Live Indicator Bar */}
-                <div className="absolute left-4 top-14 z-20 flex items-center space-x-1.5 bg-[#556B2F]/90 backdrop-blur-md text-[10px] text-white py-1 px-2.5 rounded-full font-serif font-semibold tracking-wider border border-[#99B882]/20 pointer-events-none shadow-md">
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-ping" />
-                  <span>VIDEO INTERACTIVO</span>
-                </div>
+                )}
               </div>
 
               {/* Dynamic 3D depth shadows overlay */}
